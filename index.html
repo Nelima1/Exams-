@@ -2,21 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=430, initial-scale=1.0" />
-  <title>PayPal UI Clone</title>
-  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayPal Clone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #f2f4f7;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
 
-    .app {
+    body {
+      background: #f0f2f7;
+      padding: 0;
+    }
+
+    .container {
       max-width: 430px;
       margin: 0 auto;
-      padding: 0 16px 100px;
-      position: relative;
+      padding: 0 16px;
     }
 
     .top-bar {
@@ -26,58 +31,60 @@
       padding: 16px 0;
     }
 
-    .icon-btn {
-      background: white;
-      padding: 8px;
+    .menu-icon {
+      background-color: white;
       border-radius: 50%;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     .profile-pic {
-      position: relative;
       width: 40px;
       height: 40px;
       border-radius: 50%;
-    }
-
-    .profile-pic img {
-      width: 100%;
-      border-radius: 50%;
+      position: relative;
     }
 
     .notification-dot {
+      width: 12px;
+      height: 12px;
+      background: red;
+      border-radius: 50%;
       position: absolute;
       top: 0;
       right: 0;
-      width: 10px;
-      height: 10px;
-      background: red;
-      border-radius: 50%;
       border: 2px solid white;
     }
 
     .balance-card {
       background: white;
-      border-radius: 16px;
       padding: 20px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+      gap: 12px;
+      margin: 10px 0 24px 0;
     }
 
-    .balance-text strong {
+    .balance-card img {
+      width: 32px;
+    }
+
+    .balance-card-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .balance-card-text strong {
       font-size: 24px;
     }
 
     .send-again {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .send-again h3 {
-      font-size: 16px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .send-options {
@@ -85,41 +92,39 @@
       gap: 24px;
     }
 
-    .send-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .circle-btn {
-      width: 64px;
-      height: 64px;
+    .circle-button {
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
-    .blue-bg { background: #0070E0; }
-    .black-bg { background: black; }
+    .blue-bg {
+      background-color: #0062FF;
+    }
+
+    .black-bg {
+      background-color: black;
+    }
 
     .send-label {
-      font-size: 12px;
       text-align: center;
+      font-size: 14px;
     }
 
     .transactions {
       background: white;
       border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
     }
 
     .transaction {
       display: flex;
       align-items: center;
-      padding: 12px 0;
+      padding: 16px;
       border-bottom: 1px solid #eee;
     }
 
@@ -130,7 +135,7 @@
     .transaction img {
       width: 40px;
       height: 40px;
-      border-radius: 10px;
+      border-radius: 12px;
       margin-right: 12px;
     }
 
@@ -139,43 +144,24 @@
     }
 
     .transaction-details strong {
-      font-size: 14px;
       display: block;
+      font-size: 15px;
     }
 
     .transaction-details small {
       color: gray;
-      font-size: 12px;
     }
 
     .transaction-amount {
       font-weight: 600;
-      font-size: 14px;
     }
 
-    .received { color: green; }
-    .sent { color: black; }
-
-    .action-bar {
-      position: fixed;
-      bottom: 72px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 400px;
-      background: white;
-      border-radius: 40px;
-      display: flex;
-      justify-content: space-around;
-      padding: 14px 24px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    .received {
+      color: green;
     }
 
-    .action {
-      text-align: center;
-      font-weight: bold;
+    .sent {
       color: black;
-      font-size: 14px;
     }
 
     .bottom-nav {
@@ -187,40 +173,57 @@
       border-top: 1px solid #ccc;
       display: flex;
       justify-content: space-around;
-      padding: 10px 0;
+      align-items: center;
+      padding: 12px 0;
     }
 
-    .nav-btn {
+    .bottom-nav .nav-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 12px;
+      font-size: 13px;
+      color: black;
     }
 
-    .nav-btn img {
-      width: 24px;
-      margin-bottom: 2px;
+    .action-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 12px;
+      gap: 16px;
+      background: white;
+      border-radius: 40px;
+      margin: 12px 16px;
+    }
+
+    .action-button {
+      flex: 1;
+      background: black;
+      color: white;
+      padding: 14px;
+      border-radius: 30px;
+      text-align: center;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <!-- Top Bar -->
+  <div class="container">
+    <!-- Top Menu/Profile -->
     <div class="top-bar">
-      <div class="icon-btn">
-        <img src="https://img.icons8.com/ios-glyphs/30/menu--v1.png" alt="Menu" width="20">
+      <div class="menu-icon">
+        <img src="https://img.icons8.com/ios-filled/24/menu--v1.png" alt="Menu" width="24" />
       </div>
       <div class="profile-pic">
-        <img src="https://img.icons8.com/ios-filled/50/user.png" alt="Profile">
+        <img src="profile-pic.jpg" alt="Profile" width="40" height="40" />
         <div class="notification-dot"></div>
       </div>
     </div>
 
     <!-- Balance Card -->
     <div class="balance-card">
-      <img src="https://img.icons8.com/ios-filled/50/paypal.png" alt="PayPal" width="32">
-      <div class="balance-text">
-        <strong>US$0.12</strong><br/>
+      <img src="https://img.icons8.com/ios-filled/50/paypal.png" alt="PayPal" />
+      <div class="balance-card-text">
+        <strong>US$0.12</strong>
         <span>PayPal balance</span>
       </div>
     </div>
@@ -229,15 +232,15 @@
     <div class="send-again">
       <h3>Send again</h3>
       <div class="send-options">
-        <div class="send-btn">
-          <div class="circle-btn blue-bg">
-            <img src="https://img.icons8.com/ios-filled/30/shop.png" alt="Store" />
+        <div>
+          <div class="circle-button blue-bg">
+            <img src="store-icon-white.svg" alt="Store" width="28" />
           </div>
           <div class="send-label">AMAITSA GLOBAL</div>
         </div>
-        <div class="send-btn">
-          <div class="circle-btn black-bg">
-            <img src="https://img.icons8.com/ios-filled/30/search--v1.png" alt="Search" />
+        <div>
+          <div class="circle-button black-bg">
+            <img src="search-icon-white.svg" alt="Search" width="28" />
           </div>
           <div class="send-label">Search</div>
         </div>
@@ -247,7 +250,7 @@
     <!-- Transactions -->
     <div class="transactions">
       <div class="transaction">
-        <img src="https://img.icons8.com/ios-filled/50/domain.png" alt="Endurance">
+        <img src="endurance-icon.png" alt="Endurance" />
         <div class="transaction-details">
           <strong>Endurance International Group-West, Inc</strong>
           <small>6 May - Payment</small>
@@ -255,7 +258,7 @@
         <div class="transaction-amount sent">-US$1.17</div>
       </div>
       <div class="transaction">
-        <img src="https://img.icons8.com/ios-filled/50/money-transfer.png" alt="THUNES">
+        <img src="store-icon-blue.svg" alt="THUNES" />
         <div class="transaction-details">
           <strong>THUNES</strong>
           <small>6 May - Payment received</small>
@@ -263,7 +266,7 @@
         <div class="transaction-amount received">+US$1.28</div>
       </div>
       <div class="transaction">
-        <img src="https://img.icons8.com/ios-filled/50/shop.png" alt="AMAITSA GLOBAL">
+        <img src="store-icon-blue.svg" alt="AMAITSA GLOBAL" />
         <div class="transaction-details">
           <strong>AMAITSA GLOBAL</strong>
           <small>18 Apr</small>
@@ -272,25 +275,25 @@
     </div>
   </div>
 
-  <!-- Action Bar -->
-  <div class="action-bar">
-    <div class="action">Send</div>
-    <div class="action">Request</div>
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <div class="action-button">Send</div>
+    <div class="action-button">Request</div>
   </div>
 
-  <!-- Bottom Navigation -->
+  <!-- Bottom Nav -->
   <div class="bottom-nav">
     <div class="nav-btn">
-      <img src="https://img.icons8.com/ios-filled/24/home.png" alt="Home">
-      <div>Home</div>
+      <img src="https://img.icons8.com/ios-filled/24/home.png" alt="Home" width="24" />
+      <span>Home</span>
     </div>
     <div class="nav-btn">
-      <img src="https://img.icons8.com/ios-filled/24/money.png" alt="Payments">
-      <div>Payments</div>
+      <img src="payments-icon.svg" alt="Payments" width="24" />
+      <span>Payments</span>
     </div>
     <div class="nav-btn">
-      <img src="https://img.icons8.com/ios-filled/24/wallet-app.png" alt="Wallet">
-      <div>Wallet</div>
+      <img src="wallet-icon.svg" alt="Wallet" width="24" />
+      <span>Wallet</span>
     </div>
   </div>
 </body>
